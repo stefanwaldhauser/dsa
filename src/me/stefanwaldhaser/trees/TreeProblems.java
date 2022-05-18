@@ -1,6 +1,11 @@
 package me.stefanwaldhaser.trees;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class TreeProblems {
+    //=============================
 
     // Given a sorted (increasing order) array with unique integer elements,
     // write an algorithm to create a binary search tree with minimal height.
@@ -24,5 +29,28 @@ public class TreeProblems {
         BinaryTreeNode leftMinimalBST = createMinimalBSTHelper(sortedAscending, l, mid-1);
         BinaryTreeNode rightMinimalBST = createMinimalBSTHelper(sortedAscending, mid+1, r);
         return new BinaryTreeNode(sortedAscending[mid], leftMinimalBST, rightMinimalBST);
+    }
+
+    //=============================
+
+    public static HashMap<Integer, List<BinaryTreeNode>> nodesAtDepth(BinaryTreeNode root) {
+        HashMap<Integer, List<BinaryTreeNode>> depthToNodes = new HashMap<>();
+        nodesAtDepthHelper(root, 0, depthToNodes);
+        return depthToNodes;
+    }
+
+    private static void nodesAtDepthHelper(BinaryTreeNode currentNode, int currentLevel, HashMap<Integer, List<BinaryTreeNode>> depthToNodes) {
+        if(currentNode == null) {
+            return;
+        }
+        // dfs - prenode
+        //visit
+        depthToNodes.computeIfAbsent(currentLevel, k -> new ArrayList<>());
+        depthToNodes.get(currentLevel).add(currentNode);
+        // left
+        nodesAtDepthHelper(currentNode.leftChild, currentLevel+1, depthToNodes);
+
+        // right
+        nodesAtDepthHelper(currentNode.rightChild, currentLevel+1, depthToNodes);
     }
 }
