@@ -1,2 +1,3 @@
 # dsa
-Repetition of Basic Algorithms and Data Structures
+Revisiting common data structures and algorithms for job interview phase.
+Also some leetcode solutions of mine
